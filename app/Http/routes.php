@@ -29,7 +29,7 @@ Route::get('/', function () {
 Route::group(['middleware' => ['web']], function () {
 
 	
-Route::get('/',array('as'=>'template','uses'=>'UserController@template'));
+Route::get('/home/{id?}',array('as'=>'template','uses'=>'UserController@template'));   /*optional parameter*/
 
     //
 });

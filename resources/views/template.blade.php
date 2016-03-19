@@ -26,11 +26,17 @@
                             <!-- <input type="text" name="name" required class="form-control">
                             <p class="help-block"></p>
  -->
-                            <select name="name" required class="form-control">
+                            <select id="dropdown" name="name" onChange="load()" required class="form-control">
                              
                             <option value="">select</option>
                             @foreach($data as $template)
-                            <option value="{{$template->id}}">{{$template->name}}</option>
+                            @if($template->id==$id)
+                            
+                            <option value="{{$template->id}}" selected >{{$template->name}}</option>
+                            @else
+                            <option value="{{$template->id}}" >{{$template->name}}</option>
+                          @endif
+
                             @endforeach
                             </select>
                         </div>
@@ -43,8 +49,19 @@
                         
                              <div class="control-group form-group">
                              <div class="controls">
-                            <label>About:</label>
-                            <textarea  name="about" id="editor2" required class="form-control"></textarea>
+                       
+                                @foreach($data as $template)
+
+                             @if($template->id==$id)
+                                  <label>About:</label>
+                             <textarea  name="about" id="editor2" required class="form-control">{{$template->data}}</textarea>
+                            
+                           
+
+                          @endif
+                          @endforeach
+
+
                             <p class="help-block"></p>
 
                         </div>
@@ -65,7 +82,16 @@
         <hr>
 <script>
 
+function load()
+{
+  var e = document.getElementById("dropdown");
+var strUser = e.options[e.selectedIndex].value;
+if(strUser=='')
+window.location.href = "http://localhost/mini_pro/public/home";
+else
+window.location.href = "http://localhost/mini_pro/public/home/"+strUser;
 
+}
 
 </script>
 <script type="text/javascript">

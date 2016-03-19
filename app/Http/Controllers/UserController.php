@@ -12,11 +12,11 @@ class UserController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
- public function template()
+ public function template($id=null)
   {
    		
    $data = Template::all();
-   return \View::make('template',array('data'=>$data));
+   return \View::make('template',array('data'=>$data,'id'=>$id));
 
  }
 }
