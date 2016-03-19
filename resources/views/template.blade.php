@@ -21,11 +21,21 @@
          @endif
                     <div class="control-group form-group">
                         <div class="controls">
+
                             <label>Content</label>
-                            <input type="text" name="name" required class="form-control">
+                            <!-- <input type="text" name="name" required class="form-control">
                             <p class="help-block"></p>
+ -->
+                            <select name="name" required class="form-control">
+                             
+                            <option value="">select</option>
+                            @foreach($data as $template)
+                            <option value="{{$template->id}}">{{$template->name}}</option>
+                            @endforeach
+                            </select>
                         </div>
                     </div>
+
 
                     
 
