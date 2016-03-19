@@ -29,7 +29,11 @@ Route::get('/', function () {
 Route::group(['middleware' => ['web']], function () {
 
 	
-Route::get('/home/{id?}',array('as'=>'template','uses'=>'UserController@template'));   /*optional parameter*/
+Route::get('/home/{id?}',array('as'=>'template','uses'=>'UserController@template')); /*optional parameter*/
+Route::get('senders',array('as'=>'senders','uses'=>'UserController@senders')); 
+
+Route::put('edit', array('before'=>'csrf','uses'=>'UserController@edit'));
+
 
     //
 });
