@@ -87,9 +87,9 @@ function load()
   var e = document.getElementById("dropdown");
 var strUser = e.options[e.selectedIndex].value;
 if(strUser=='')
-window.location.href = "http://localhost/mini_pro/public/home";
+window.location.href = "{{url('home')}}";
 else
-window.location.href = "http://localhost/mini_pro/public/home/"+strUser;
+window.location.href = "{{url('home')}}/"+strUser;
 
 }
 

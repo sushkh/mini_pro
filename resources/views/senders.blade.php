@@ -26,12 +26,21 @@
                             <!-- <input type="text" name="name" required class="form-control">
                             <p class="help-block"></p>
  -->
-                            <select name="name" required class="form-control">
-                             
+                            <select id="dropdown" name="name" onChange="load()" required class="form-control">
                             <option value="">select</option>
-                             <option value="1">Select * from table</option>
-                              <option value="2">select * from table 1</option>
+
+                            @foreach($data as $query)
+                            @if($query->id==$id)
                             
+                             
+                           
+                            <option value="{{$query->id}}" selected >{{$query->query}}</option>
+                            @else
+                            <option value="{{$query->id}}" >{{$query->query}}</option>
+                          @endif
+
+                            @endforeach
+                             
                             </select>
                         </div>
                     </div>
@@ -43,11 +52,13 @@
                         
                              <div class="control-group form-group">
                              <div class="controls">
-                       
+                            
                                 
                                   <label>Senders Mail_id:</label>
-                             <textarea  name="about"  rows="10" required class="form-control"></textarea>
+                             <textarea  name="about"  rows="10" required class="form-control">{{$result}}</textarea>
+                        
                                 <p class="help-block"></p>
+
 
                         </div>
                     </div>
@@ -73,5 +84,19 @@
             </div>
         </footer>
 
+        <script type="text/javascript">
+
+        function load()
+{
+  var e = document.getElementById("dropdown");
+var strUser = e.options[e.selectedIndex].value;
+if(strUser=='')
+window.location.href = "{{url('senders')}}";
+else
+window.location.href = "{{url('senders')}}/"+strUser;
+
+}
+</script>
+        
     </div>
     @stop

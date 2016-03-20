@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Redirect;
 use Request;
 use Views;
 use App\User;
+use App\Query;
 use DB;
 use Session;
 use Response;
@@ -43,12 +44,23 @@ class UserController extends BaseController
  	return Redirect::to('senders');
  }
 
- public function senders()
+ public function senders($id=null)
   {
    		
-   
-   return \View::make('senders');
+   $data=Query::all();
+   $result = "";
+   if($id!=null)
+   {
+   $result = DB::select(Query::where('id',$id)->first()->query);
+   $res = array();
+   foreach($result as $r)
+   {
+   	$res[] = $r->data;
+   }
+   return \View::make('senders',array('data'=>$data,'id'=>$id,'result'=>$res));
 
+   }
+   return \View::make('senders',array('data'=>$data,'id'=>$id,'result'=>$result));
  }
 
 }
