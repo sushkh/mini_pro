@@ -53,12 +53,32 @@ public function edit()
   return Redirect::to('senders');
 }
 
+
 public function senders($id=null)
 {
 
- $data=Query::all();
- $result = "";
- if($id!=null)
+      $data=Query::all();
+      $resp = "";
+  
+        if($id!=null)
+          {
+                $queries = DB::select(DB::raw(Query::where('id',$id)->first()->query));
+                  foreach ($queries as $query) {
+                       $resp = $resp . "," . $query->recipient;
+                      }
+              return \View::make('senders',array('data'=>$data,'id'=>$id,'result'=>$resp));
+          }
+        else
+          {
+              return \View::make('senders',array('data'=>$data,'id'=>$id,'result'=>$resp));
+
+          }
+}
+ 
+
+/* $result = "";
+ if($
+ }id!=null)
  {
    $result = DB::select(Query::where('id',$id)->first()->query);
    $res = array();
@@ -70,6 +90,6 @@ public function senders($id=null)
 
  }
  return \View::make('senders',array('data'=>$data,'id'=>$id,'result'=>$result));
-}
+}*/
 
 }

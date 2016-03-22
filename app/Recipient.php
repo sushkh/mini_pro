@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class MailModel extends Authenticatable
+class Recipient extends Authenticatable
 {
     /**
      * The attributes that are mass assignable.
@@ -12,9 +12,9 @@ class MailModel extends Authenticatable
      * @var array
      */
     protected $fillable = [
-   'recipient','data'
+   'recipient'
     ];
-    protected $table="mailmodel";
+    protected $table="recipient";
 
     /**
      * The attributes excluded from the model's JSON form.
