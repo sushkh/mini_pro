@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Redirect;
 use Request;
 use Views;
 use App\User;
+use App\Recipient;
 use App\Query;
 use DB;
 use Session;
@@ -38,11 +39,29 @@ class UserController extends BaseController
   }
   );
 }
+public function add_mail()
+{
+  $data = Input::all();
+/*  $mail = new Recipient;*/
+  dd($data);
+  /*$mail->recipient=$data[]
+  $res=explode(",",$result)
+  $mail->recipient=;
+  $mail->save();
+  $cust=MailModel::where('data',$data['data'])->first();
+
+  Session::put('mail_id',$cust->id);
+
+  return Redirect::to('senders');
+  */
+}
+
 
 
 public function edit()
 {
   $data = Input::all();
+
   $mail = new MailModel;
   $mail->data=$data['data'];
   $mail->save();
@@ -57,41 +76,32 @@ public function edit()
 public function senders($id=null)
 {
 
-      $data=Query::all();
-      $resp = ",";
-  
-        if($id!=null)
-          {
-                $queries = DB::select(DB::raw(Query::where('id',$id)->first()->query));
-                  foreach ($queries as $query) {
-                       $resp = $resp . "," . $query->recipient;
-                      }
-                        dd(explode(",",$resp));
+$data=Query::all();
+$resp = "";
+$count =0;
+if($id!=null)
+{
+$queries = DB::select(DB::raw(Query::where('id',$id)->first()->query));
+foreach ($queries as $query) {
+if($count == 0){
+$resp = $resp .  $query->recipient;
 
-              return \View::make('senders',array('data'=>$data,'id'=>$id,'result'=>$resp));
-          }
-        else
-          {
-              return \View::make('senders',array('data'=>$data,'id'=>$id,'result'=>$resp));
-
-          }
 }
- 
+else{
+$resp = $resp . "," . $query->recipient;
+}
+$count++;
+}
 
-/* $result = "";
- if($
- }id!=null)
- {
-   $result = DB::select(Query::where('id',$id)->first()->query);
-   $res = array();
-   foreach($result as $r)
-   {
-   	$res[] = $r->data;
-   }
-   return \View::make('senders',array('data'=>$data,'id'=>$id,'result'=>$res));
 
- }
- return \View::make('senders',array('data'=>$data,'id'=>$id,'result'=>$result));
-}*/
+return \View::make('senders',array('data'=>$data,'id'=>$id,'result'=>$resp));
+}
+else
+{
+return \View::make('senders',array('data'=>$data,'id'=>$id,'result'=>$resp));
+
+}
+}
+
 
 }

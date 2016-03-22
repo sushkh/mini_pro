@@ -33,6 +33,8 @@ Route::get('/home/{id?}',array('as'=>'template','uses'=>'UserController@template
 Route::get('senders/{id?}',array('as'=>'senders','uses'=>'UserController@senders')); 
 
 Route::put('edit', array('before'=>'csrf','uses'=>'UserController@edit'));
+Route::put('add_mail', array('before'=>'csrf','uses'=>'UserController@add_mail'));
+
 Route::get('sendmail',array('as'=>'sendmail','uses'=>'UserController@sendmail'));
 
 
