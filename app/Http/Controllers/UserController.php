@@ -30,6 +30,24 @@ class UserController extends BaseController
    return \View::make('template',array('data'=>$data,'id'=>$id));
 
  }
+ public function sendmail()
+  {
+      if(Mail::raw('Laravel with Mailgun is easy!', function($message)
+{
+    $message->to('sush.94kh@gmail.com');}))
+                                                    
+      {
+        return "success";
+      }
+      else
+      {
+        return "faliure";
+      }
+   
+
+
+ }
+
 
  public function edit()
  {
