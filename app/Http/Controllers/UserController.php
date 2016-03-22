@@ -32,6 +32,13 @@ class UserController extends BaseController
    return \View::make('template',array('data'=>$data,'id'=>$id));
 
  }
+ public function dashboard()
+  {
+
+
+   return \View::make('dashboard');
+
+ }
  public function sendmail()
  {
   return \Mail::raw('Laravel with Mailgun is easy!yo...', function($message)
@@ -40,22 +47,22 @@ class UserController extends BaseController
   }
   );
 }
-public function add_mail(){
- 
-    $data = Input::all();
-   
-    $res = explode(',', $data['about']);
+public function add_mail()
+{
+ $data = Input::all();
+ $mails = explode(',', $data['about']);
+ $template = MailModel::where('id',Session::get('mail_id'))->first()->data;
+ foreach($mails as $m){
+ $sender = array('template'=>$template,'mail'=>$m);
 
-    foreach($res as $r){
-    
-            Mail::raw('Laravel with Mailgun is easy!yo...', function($message)
-              {
-                   $message->to($r);
-               }
-               );
-       }
+   \Mail::send(['html' => 'mail'],array('data' => $sender['template']), function($message) use($sender)
+   {
+     $message->to($sender['mail']);
+   }
+   );
+     echo "done";
+ }
 }
-
 
 
 public function edit()
