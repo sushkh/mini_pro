@@ -29,6 +29,18 @@
 
                             </tr>
                             </thead>
+                             <tbody>
+                            @foreach($data as $d)
+                                <tr>
+                                    <td>{!! $d->recipient!!}</td>
+                                    
+                                    <!-- <td><a class="btn btn-success" href="edituser/{{$d->id}}">Edit</a></td>
+                                    <td><a  class="btn btn-success" href="deleteuser/{{$d->id}}">Delete</a></td> -->
+                                </tr>
+
+
+                            @endforeach
+                            </tbody>
                            
                         </table>
                         <script type="text/javascript">

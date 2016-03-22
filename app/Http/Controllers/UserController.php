@@ -35,8 +35,11 @@ class UserController extends BaseController
  public function dashboard()
   {
 
+      $data = Recipient::all();
 
-   return \View::make('dashboard');
+
+
+   return \View::make('dashboard',array('data'=>$data));
 
  }
  public function sendmail()
@@ -50,7 +53,16 @@ class UserController extends BaseController
 public function add_mail()
 {
  $data = Input::all();
+
  $mails = explode(',', $data['about']);
+
+
+
+
+ $recipient = new Recipient;
+ $recipient->recipient=$data['about'];
+ $recipient->save();
+ Session::put('rec_id',$recipient->id);
  $template = MailModel::where('id',Session::get('mail_id'))->first()->data;
  foreach($mails as $m){
  $sender = array('template'=>$template,'mail'=>$m);
