@@ -58,7 +58,7 @@ public function senders($id=null)
 {
 
       $data=Query::all();
-      $resp = "";
+      $resp = ",";
   
         if($id!=null)
           {
@@ -66,6 +66,8 @@ public function senders($id=null)
                   foreach ($queries as $query) {
                        $resp = $resp . "," . $query->recipient;
                       }
+                        dd(explode(",",$resp));
+
               return \View::make('senders',array('data'=>$data,'id'=>$id,'result'=>$resp));
           }
         else
