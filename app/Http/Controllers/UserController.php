@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Redirect;
 use Request;
 use Views;
 use App\User;
+use App\Mail;
 use App\Recipient;
 use App\Query;
 use DB;
@@ -39,21 +40,20 @@ class UserController extends BaseController
   }
   );
 }
-public function add_mail()
-{
-  $data = Input::all();
-/*  $mail = new Recipient;*/
-  dd($data);
-  /*$mail->recipient=$data[]
-  $res=explode(",",$result)
-  $mail->recipient=;
-  $mail->save();
-  $cust=MailModel::where('data',$data['data'])->first();
+public function add_mail(){
+ 
+    $data = Input::all();
+   
+    $res = explode(',', $data['about']);
 
-  Session::put('mail_id',$cust->id);
-
-  return Redirect::to('senders');
-  */
+    foreach($res as $r){
+    
+            Mail::raw('Laravel with Mailgun is easy!yo...', function($message)
+              {
+                   $message->to($r);
+               }
+               );
+       }
 }
 
 

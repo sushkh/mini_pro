@@ -8,7 +8,7 @@
             <!-- Content Column -->
             <div class="col-md-9">
                 <h2>Get all Recipients</h2>
-                <form action="add_mail" method="post" enctype="multipart/form-data">
+                <form action={{url('add_mail')}} method="post" enctype="multipart/form-data">
                      <input type="hidden" name="_method" value="PUT">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     
