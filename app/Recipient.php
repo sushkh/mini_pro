@@ -12,7 +12,7 @@ class Recipient extends Authenticatable
      * @var array
      */
     protected $fillable = [
-   'recipient'
+   'recipient','created_at'
     ];
     protected $table="recipient";
 

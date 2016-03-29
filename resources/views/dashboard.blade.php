@@ -24,8 +24,7 @@
                             <tr>
                                 <th><center>Email-Ids</center></th>
                                 <th><center>Sent</center></th>
-                                <th><center>Date</center></th>
-                                <th><center>Time</center></th>
+                                <th><center>Date and Time</center></th>
 
                             </tr>
                             </thead>
@@ -33,7 +32,8 @@
                             @foreach($data as $d)
                                 <tr>
                                     <td>{!! $d->recipient!!}</td>
-                                    
+                                    <td>yes</td>
+                                    <td>{!! $d->created_at!!}</td>
                                     <!-- <td><a class="btn btn-success" href="edituser/{{$d->id}}">Edit</a></td>
                                     <td><a  class="btn btn-success" href="deleteuser/{{$d->id}}">Delete</a></td> -->
                                 </tr>
@@ -66,7 +66,7 @@ window.onload = tabledisp;
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; CampusPuppy 2015</p>
+                    <p>Copyright &copy; Saas Labs 2016</p>
                 </div>
             </div>
         </footer>

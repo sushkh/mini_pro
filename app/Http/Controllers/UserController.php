@@ -33,17 +33,17 @@ class UserController extends BaseController
 
  }
  public function dashboard()
-  {
-
-      $data = Recipient::all();
-
-
-
-   return \View::make('dashboard',array('data'=>$data));
-
- }
- public function sendmail()
  {
+
+  $data = Recipient::all();
+
+
+
+  return \View::make('dashboard',array('data'=>$data));
+
+}
+public function sendmail()
+{
   return \Mail::raw('Laravel with Mailgun is easy!yo...', function($message)
   {
     $message->to('sush.94kh@gmail.com');
@@ -55,25 +55,21 @@ public function add_mail()
  $data = Input::all();
 
  $mails = explode(',', $data['about']);
-
-
-
-
- $recipient = new Recipient;
- $recipient->recipient=$data['about'];
- $recipient->save();
- Session::put('rec_id',$recipient->id);
  $template = MailModel::where('id',Session::get('mail_id'))->first()->data;
  foreach($mails as $m){
- $sender = array('template'=>$template,'mail'=>$m);
+   $sender = array('template'=>$template,'mail'=>$m);
 
-   \Mail::send(['html' => 'mail'],array('data' => $sender['template']), function($message) use($sender)
+   \Mail::queue(['html' => 'mail'],array('data' => $sender['template']), function($message) use($sender)
    {
      $message->to($sender['mail']);
    }
    );
-     echo "done";
+   $recipient = new Recipient;
+   $recipient->recipient=$m;
+   $recipient->save();
  }
+
+ return Redirect::to('dashboard');
 }
 
 
@@ -95,31 +91,31 @@ public function edit()
 public function senders($id=null)
 {
 
-$data=Query::all();
-$resp = "";
-$count =0;
-if($id!=null)
-{
-$queries = DB::select(DB::raw(Query::where('id',$id)->first()->query));
-foreach ($queries as $query) {
-if($count == 0){
-$resp = $resp .  $query->recipient;
+  $data=Query::all();
+  $resp = "";
+  $count =0;
+  if($id!=null)
+  {
+    $queries = DB::select(DB::raw(Query::where('id',$id)->first()->query));
+    foreach ($queries as $query) {
+      if($count == 0){
+        $resp = $resp .  $query->recipient;
 
-}
-else{
-$resp = $resp . "," . $query->recipient;
-}
-$count++;
-}
+      }
+      else{
+        $resp = $resp . "," . $query->recipient;
+      }
+      $count++;
+    }
 
 
-return \View::make('senders',array('data'=>$data,'id'=>$id,'result'=>$resp));
-}
-else
-{
-return \View::make('senders',array('data'=>$data,'id'=>$id,'result'=>$resp));
+    return \View::make('senders',array('data'=>$data,'id'=>$id,'result'=>$resp));
+  }
+  else
+  {
+    return \View::make('senders',array('data'=>$data,'id'=>$id,'result'=>$resp));
 
-}
+  }
 }
 
 
